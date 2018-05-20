@@ -1,0 +1,8 @@
+# NPM
+node_modules
+*.log*
+
+# Editors
+.idea
+.vscode
+
