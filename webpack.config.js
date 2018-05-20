@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: './src/index.html',
@@ -20,9 +20,14 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
+                test: /.tsx?$/,
+                loader: 'awesome-typescript-loader',
+                exclude: /node_modules/,
+            },
+            {
+                test: /.js$/,
+                loader: 'source-map-loader',
+                enforce: 'pre',
             },
             {
                 test: /\.scss$/,
@@ -30,13 +35,13 @@ module.exports = {
                     loader: styleLoader,
                 }, {
                     loader: "css-loader", options: {
-                        sourceMap: true
-                    }
+                        sourceMap: true,
+                    },
                 }, {
                     loader: "sass-loader", options: {
-                        sourceMap: true
-                    }
-                }]
+                        sourceMap: true,
+                    },
+                }],
             },
             {
                 test: /\.css$/,
@@ -45,25 +50,16 @@ module.exports = {
                     {loader: "css-loader"},
                 ],
             },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: "babel-loader",
-            }, {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                use: "babel-loader",
-            },
         ],
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ]
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         HtmlWebpackPluginConfig,
         new MiniCssExtractPlugin({
             filename: "[name].css",
-            chunkFilename: "[id].css"
-        })
+            chunkFilename: "[id].css",
+        }),
     ],
 }
