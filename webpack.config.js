@@ -11,7 +11,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 const styleLoader = process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
         path: path.resolve('dist'),
         filename: 'index_bundle.js',
@@ -19,6 +19,11 @@ module.exports = {
     devtool: "source-map",
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            },
             {
                 test: /\.scss$/,
                 use: [{
@@ -50,6 +55,9 @@ module.exports = {
                 use: "babel-loader",
             },
         ],
+    },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ]
     },
     plugins: [
         HtmlWebpackPluginConfig,
